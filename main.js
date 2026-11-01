@@ -100,6 +100,38 @@
 
 
 
+
+  /* ---------- what we fund: white disc that never touches the heading ---------- */
+  var maskSection = document.querySelector(".mask-reveal");
+  var maskOverlay = document.getElementById("maskOverlay");
+  var maskContent = document.getElementById("maskContent");
+
+  if (maskSection && maskOverlay && !prefersReducedMotion) {
+    var syncMask = function () {
+      var rect = maskSection.getBoundingClientRect();
+      var span = maskSection.offsetHeight - window.innerHeight;
+      var progress = span > 0 ? Math.max(0, Math.min(1, -rect.top / span)) : 1;
+
+      // disc grows from the bottom-right; cap the radius just short of the heading
+      var ref = Math.hypot(window.innerWidth, window.innerHeight) / Math.SQRT2;
+      var cx = window.innerWidth * 0.85;
+      var cy = window.innerHeight * 0.85;
+      var cr = document.getElementById("mask-heading").getBoundingClientRect();
+      var px = Math.max(cr.left, Math.min(cx, cr.right));
+      var py = Math.max(cr.top, Math.min(cy, cr.bottom));
+      var capPct = Math.max(6, (Math.hypot(cx - px, cy - py) / ref) * 100 * 0.97);
+      var radius = Math.min(progress * 160, capPct);
+
+      maskOverlay.style.clipPath = "circle(" + radius + "% at 85% 85%)";
+      maskContent.classList.toggle("visible", progress > 0.12);
+    };
+    window.addEventListener("scroll", syncMask, { passive: true });
+    window.addEventListener("resize", syncMask, { passive: true });
+    syncMask();
+  } else if (maskContent) {
+    maskContent.classList.add("visible");
+  }
+
   /* ---------- application form: validate, then submit natively ---------- */
   var form = document.getElementById("applyForm");
 
