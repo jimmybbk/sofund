@@ -64,25 +64,6 @@
     }, 2400);
   }
 
-  /* ---------- circle mask reveal ---------- */
-  var maskSection = document.querySelector(".mask-reveal");
-  var maskOverlay = document.getElementById("maskOverlay");
-  var maskContent = document.getElementById("maskContent");
-
-  if (maskSection && maskOverlay && !prefersReducedMotion) {
-    var syncMask = function () {
-      var rect = maskSection.getBoundingClientRect();
-      var span = maskSection.offsetHeight - window.innerHeight;
-      var progress = span > 0 ? Math.max(0, Math.min(1, -rect.top / span)) : 1;
-      maskOverlay.style.clipPath = "circle(" + (progress * 150) + "% at 50% 50%)";
-      maskContent.classList.toggle("visible", progress > 0.4);
-    };
-    window.addEventListener("scroll", syncMask, { passive: true });
-    window.addEventListener("resize", syncMask, { passive: true });
-    syncMask();
-  } else if (maskContent) {
-    maskContent.classList.add("visible");
-  }
 
   /* ---------- scroll-driven fund slides ---------- */
   var fundSection = document.querySelector(".fund-slides");

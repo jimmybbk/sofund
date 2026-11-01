@@ -319,42 +319,13 @@ html:not(.js) .hero-rotator { display: none; }
   color: var(--gray-500);
 }
 
-/* ---------- circle mask reveal ---------- */
+/* ---------- what we fund (black intro section) ---------- */
 .mask-reveal {
-  height: 300vh;
-  position: relative;
+  padding: 10rem 0;
   background: var(--espresso);
 }
-.mask-reveal-sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow: hidden;
-}
-.mask-overlay {
-  position: absolute;
-  inset: 0;
-  background: #ffffff;
-  clip-path: circle(0% at 50% 50%);
-  z-index: 1;
-}
-/* white text over the black section; letters invert to black where the
-   white circle passes beneath them (always readable) */
-.mask-content {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  z-index: 2;
-  mix-blend-mode: difference;
-  color: #ffffff;
-  opacity: 0;
-  transition: opacity 0.6s var(--ease-smooth);
-}
-.mask-content .section-label { color: #ffffff; }
-.mask-content .section-heading { color: #ffffff; }
-.mask-content.visible { opacity: 1; }
+.mask-reveal .section-label { color: rgba(255, 255, 255, 0.55); }
+.mask-reveal .section-heading { color: #ffffff; }
 
 /* ---------- fund slides (products) ---------- */
 .fund-slides {
@@ -766,10 +737,6 @@ html:not(.js) .hero-rotator { display: none; }
   .js .hero-word { opacity: 0; }
   .js .hero-word.active { opacity: 1; transform: none; }
   
-  .mask-reveal { height: auto; background: var(--white); border-top: 1px solid var(--gray-200); }
-  .mask-reveal-sticky { position: static; height: auto; }
-  .mask-overlay { position: static; clip-path: none; }
-  .mask-content { opacity: 1; padding: 6rem 0; }
 
   .fund-slides { height: auto; }
   .fund-slides-sticky { position: static; height: auto; overflow: visible; }
