@@ -721,9 +721,26 @@ html:not(.js) .hero-rotator { display: none; }
 .footer-link:hover { color: var(--on-dark); }
 
 
+.how-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+.how-figure { margin: 0; }
+.how-figure img {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--gray-200);
+  display: block;
+}
+.legal-page .how-copy { margin-top: 0; }
+
 /* ---------- responsive ---------- */
 @media (max-width: 1024px) {
   .form-layout { grid-template-columns: 1fr; }
+  .how-grid { grid-template-columns: 1fr; }
+  .how-figure { max-width: 30rem; }
   .fund-slide-inner { grid-template-columns: 1fr; align-content: center; gap: 2rem; }
   .fund-right { flex-direction: row; align-items: center; justify-content: space-between; }
   .fund-lines { flex: 1; }

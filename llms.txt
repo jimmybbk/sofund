@@ -1,0 +1,11 @@
+# Sofund
+
+> Australian business finance broker. One enquiry reaches 200+ lenders; funding options are provided in writing, with lender-confirmed rates, within 48 hours.
+
+Sofund Pty Ltd arranges business loans ($15k to $5M), asset and equipment finance, invoice finance and commercial mortgages for Australian companies. Sofund is a broker, not a lender; lenders pay our fee, clients pay nothing upfront.
+
+Main site: https://jimmybbk.github.io/sofund/
+Privacy Policy: https://jimmybbk.github.io/sofund/privacy.html
+Terms of Use: https://jimmybbk.github.io/sofund/terms.html
+Credit Guide: https://jimmybbk.github.io/sofund/credit-guide.html
+Contact: hello@sofund.com.au
