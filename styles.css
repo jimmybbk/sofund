@@ -331,6 +331,15 @@ html:not(.js) .hero-rotator { display: none; }
   height: 100vh;
   overflow: hidden;
 }
+.mask-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(180deg, rgba(6, 6, 9, 0.78), rgba(6, 6, 9, 0.55)),
+    url("https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1920&q=80");
+  background-size: cover;
+  background-position: center;
+}
 .mask-overlay {
   position: absolute;
   inset: 0;
@@ -752,6 +761,7 @@ html:not(.js) .hero-rotator { display: none; }
   .js .sr { opacity: 1; transform: none; }
   .js .hero-word { opacity: 0; }
   .js .hero-word.active { opacity: 1; transform: none; }
+  .mask-bg { display: none; }
 
   .mask-reveal { height: auto; background: var(--white); border-top: 1px solid var(--gray-200); }
   .mask-reveal-sticky { position: static; height: auto; }
