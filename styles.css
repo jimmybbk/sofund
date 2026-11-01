@@ -775,7 +775,10 @@ html:not(.js) .hero-rotator { display: none; }
   .form-card { padding: 2rem 1.5rem; }
   .form-row { grid-template-columns: 1fr; gap: 0; }
   .fund-right { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
-  .fund-figure { display: none; }
+  /* show the product photos on phones; drop the decorative dashes instead */
+  .fund-figure { display: block; margin: 1.5rem 0 0; max-width: 100%; }
+  .fund-figure img { aspect-ratio: 5 / 2; }
+  .fund-lines { display: none; }
   .fund-lines { width: 100%; }
 }
 
