@@ -353,6 +353,8 @@ html:not(.js) .hero-rotator { display: none; }
   transition: opacity 0.6s var(--ease-smooth);
 }
 .mask-content.visible { opacity: 1; }
+html:not(.js) .mask-content { opacity: 1; }
+html:not(.js) .mask-overlay { clip-path: circle(140% at 85% 85%); }
 .mask-content > * { width: fit-content; }
 .mask-reveal .section-label { color: rgba(255, 255, 255, 0.55); }
 .mask-reveal .section-heading { color: #ffffff; }
@@ -760,12 +762,15 @@ html:not(.js) .hero-rotator { display: none; }
 }
 
 @media (max-width: 768px) {
-  .mask-reveal-sticky { height: 72vh; min-height: 26rem; }
+  .mask-reveal-sticky { height: 30rem; min-height: 0; }
+  .mask-content { justify-content: flex-start; padding-top: 4.5rem; }
   .nav-right { display: none; }
   .nav-toggle { display: flex; }
   .nav-drawer.is-open { display: flex; }
   .nav { padding: 1.5rem 0; }
-  .hero { padding: 9rem 0 6rem; }
+  .hero { padding: 8rem 0 4rem; }
+  .hero-body { margin-top: 2.5rem; }
+  .stats-section { padding: 4rem 0; }
   .stats-row { grid-template-columns: 1fr 1fr; gap: 3rem; }
   .why-grid { grid-template-columns: 1fr; }
   .why-cell { padding: 2rem 1.5rem; }
@@ -774,9 +779,19 @@ html:not(.js) .hero-rotator { display: none; }
   .form-card { padding: 2rem 1.5rem; }
   .form-row { grid-template-columns: 1fr; gap: 0; }
   .fund-right { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
-  /* show the product photos on phones; drop the decorative dashes instead */
-  .fund-figure { display: block; margin: 1.5rem 0 0; max-width: 100%; }
-  .fund-figure img { aspect-ratio: 5 / 2; }
+  /* product photos go edge-to-edge on phones so they read as real imagery */
+  .fund-figure {
+    display: block;
+    width: 100vw;
+    max-width: 100vw;
+    margin: 2.25rem calc(50% - 50vw) 0;
+  }
+  .fund-figure img {
+    aspect-ratio: 16 / 10;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
   .fund-lines { display: none; }
   .fund-lines { width: 100%; }
 }
@@ -798,4 +813,6 @@ html:not(.js) .hero-rotator { display: none; }
   .fund-slide { position: static; opacity: 1; transform: none; pointer-events: auto; }
   .fund-slide-inner { padding: 4rem 0; }
   .fund-line::after { transform: scaleX(1); }
+  .mask-content { opacity: 1; transition: none; }
+  .mask-overlay { clip-path: circle(140% at 85% 85%); }
 }

@@ -116,11 +116,26 @@
     var syncMask = function () {
       var progress = maskProgress;
 
-      // disc grows from the bottom-right; cap the radius just short of the heading
-      var ref = Math.hypot(window.innerWidth, window.innerHeight) / Math.SQRT2;
-      var cx = window.innerWidth * 0.85;
-      var cy = window.innerHeight * 0.85;
-      var cr = document.getElementById("mask-heading").getBoundingClientRect();
+      // disc grows from the bottom-right; cap the radius just short of every
+      // visible block of copy, measured in the overlay's own box (the painted
+      // clip-path %s resolve there, not in the viewport)
+      var ob = maskOverlay.getBoundingClientRect();
+      var ref = Math.hypot(ob.width, ob.height) / Math.SQRT2;
+      var cx = ob.left + ob.width * 0.85;
+      var cy = ob.top + ob.height * 0.85;
+      var cr = null;
+      for (var k = 0; k < maskContent.children.length; k++) {
+        var rc = maskContent.children[k].getBoundingClientRect();
+        if (!rc.width && !rc.height) { continue; }
+        if (!cr) { cr = { left: rc.left, top: rc.top, right: rc.right, bottom: rc.bottom }; }
+        else {
+          cr.left = Math.min(cr.left, rc.left);
+          cr.top = Math.min(cr.top, rc.top);
+          cr.right = Math.max(cr.right, rc.right);
+          cr.bottom = Math.max(cr.bottom, rc.bottom);
+        }
+      }
+      if (!cr) { cr = { left: cx, top: cy, right: cx, bottom: cy }; }
       var px = Math.max(cr.left, Math.min(cx, cr.right));
       var py = Math.max(cr.top, Math.min(cy, cr.bottom));
       var capPct = Math.max(6, (Math.hypot(cx - px, cy - py) / ref) * 100 * 0.97);
