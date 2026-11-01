@@ -319,58 +319,23 @@ html:not(.js) .hero-rotator { display: none; }
   color: var(--gray-500);
 }
 
-/* ---------- circle mask reveal ---------- */
-.mask-reveal {
-  height: 300vh;
-  position: relative;
-  background: var(--espresso);
-}
-.mask-reveal-sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow: hidden;
-}
-.mask-overlay {
-  position: absolute;
-  inset: 0;
-  background: var(--white);
-  clip-path: circle(0% at 50% 50%);
-}
-.mask-content {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.6s var(--ease-smooth);
-}
-.mask-content.visible { opacity: 1; }
-
-/* ---------- fund slides (products) ---------- */
+/* ---------- products (stacked, free-scrolling) ---------- */
 .fund-slides {
-  height: calc(var(--number, 4) * 80vh);
-  position: relative;
   background: var(--white);
+  padding-bottom: 4rem;
 }
-.fund-slides-sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow: hidden;
-}
+.fund-head { margin-bottom: clamp(2rem, 5vw, 4rem); }
 .fund-slide {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  pointer-events: none;
+  padding: clamp(3.5rem, 7vw, 6rem) 0;
 }
-.fund-slide.active { opacity: 1; transform: none; pointer-events: auto; }
+.fund-slide + .fund-slide { border-top: 1px solid var(--gray-200); }
+.js .fund-slide {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s var(--ease-smooth), transform 0.7s var(--ease-smooth);
+}
+.js .fund-slide.active { opacity: 1; transform: none; }
+html:not(.js) .fund-line::after { transform: scaleX(1); }
 .fund-slide-inner {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
@@ -742,7 +707,7 @@ html:not(.js) .hero-rotator { display: none; }
   .fund-lines { width: 100%; }
 }
 
-/* ---------- reduced motion: collapse sticky theatrics into static layout ---------- */
+/* ---------- reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
@@ -752,15 +717,6 @@ html:not(.js) .hero-rotator { display: none; }
   .js .sr { opacity: 1; transform: none; }
   .js .hero-word { opacity: 0; }
   .js .hero-word.active { opacity: 1; transform: none; }
-
-  .mask-reveal { height: auto; background: var(--white); border-top: 1px solid var(--gray-200); }
-  .mask-reveal-sticky { position: static; height: auto; }
-  .mask-overlay { position: static; clip-path: none; }
-  .mask-content { opacity: 1; padding: 6rem 0; }
-
-  .fund-slides { height: auto; }
-  .fund-slides-sticky { position: static; height: auto; overflow: visible; }
-  .fund-slide { position: static; opacity: 1; transform: none; pointer-events: auto; }
-  .fund-slide-inner { padding: 4rem 0; }
+  .js .fund-slide { opacity: 1; transform: none; }
   .fund-line::after { transform: scaleX(1); }
 }
