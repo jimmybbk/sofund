@@ -736,6 +736,16 @@ html:not(.js) .hero-rotator { display: none; }
 }
 .legal-page .how-copy { margin-top: 0; }
 
+.fund-figure { margin: 2.5rem 0 0; max-width: 34rem; }
+.fund-figure img {
+  width: 100%;
+  aspect-ratio: 3 / 1;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid var(--gray-200);
+  display: block;
+}
+
 /* ---------- responsive ---------- */
 @media (max-width: 1024px) {
   .form-layout { grid-template-columns: 1fr; }
@@ -765,6 +775,7 @@ html:not(.js) .hero-rotator { display: none; }
   .form-card { padding: 2rem 1.5rem; }
   .form-row { grid-template-columns: 1fr; gap: 0; }
   .fund-right { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+  .fund-figure { display: none; }
   .fund-lines { width: 100%; }
 }
 
