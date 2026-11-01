@@ -6,25 +6,36 @@
    ============================================================ */
 
 :root {
-  --black: #2B2320;            /* charcoal ink: headings, rules, strong text */
-  --white: #FAF6F0;            /* cream: page background */
-  --ink: #221B18;
-  --gray-700: #4A4038;
-  --gray-500: #5F5349;         /* muted body text (AA on cream and sand) */
-  --gray-400: #8A7B70;         /* warm gray: labels, rotating word */
-  --gray-200: #E5DACC;         /* hairlines */
-  --gray-100: #F1EAE0;         /* sand: alternate sections */
+  /* default theme: mono (black on white). Every themed color is a token —
+     the palette switcher in main.js overrides these per theme. */
+  --black: #000000;            /* strong ink: headings, rules */
+  --white: #ffffff;            /* page background */
+  --ink: #111111;
+  --gray-700: #333333;
+  --gray-500: #555555;
+  --gray-400: #999999;
+  --gray-200: #e8e8e8;
+  --gray-100: #f7f7f7;
 
-  --accent: #C4552D;           /* terracotta: CTAs, accents */
-  --accent-hover: #A8451F;
-  --on-accent: #FFFFFF;
+  --accent: #000000;           /* CTAs and accents */
+  --accent-hover: #000000;
+  --on-accent: #ffffff;
 
-  --espresso: #2A211B;         /* dark section background */
-  --on-dark: #F5EFE7;
-  --on-dark-muted: rgba(245, 239, 231, 0.62);
-  --on-dark-faint: rgba(245, 239, 231, 0.4);
-  --dark-card: rgba(245, 239, 231, 0.05);
-  --dark-border: rgba(245, 239, 231, 0.14);
+  --espresso: #000000;         /* dark section background */
+  --on-dark: #ffffff;
+  --on-dark-muted: rgba(255, 255, 255, 0.62);
+  --on-dark-faint: rgba(255, 255, 255, 0.4);
+  --on-dark-label: rgba(255, 255, 255, 0.7);
+  --on-dark-body: rgba(255, 255, 255, 0.75);
+  --on-dark-legal: rgba(255, 255, 255, 0.32);
+  --on-dark-link: rgba(255, 255, 255, 0.45);
+  --dark-card: rgba(255, 255, 255, 0.05);
+  --dark-border: rgba(255, 255, 255, 0.14);
+  --dark-input-bg: rgba(255, 255, 255, 0.06);
+  --dark-input-hover: rgba(255, 255, 255, 0.35);
+  --nav-blur-bg: rgba(255, 255, 255, 0.92);
+  --danger-border: #ff6b6b;
+  --danger-text: #ff9b9b;
 
   --ease-inout: cubic-bezier(0.77, 0, 0.175, 1);
   --ease-smooth: cubic-bezier(0.16, 1.08, 0.38, 0.98);
@@ -98,7 +109,7 @@ img, svg { display: inline-block; max-width: 100%; }
 }
 .nav.scrolled {
   padding: 1.25rem 0;
-  background: rgba(250, 246, 240, 0.92);
+  background: var(--nav-blur-bg);
   backdrop-filter: blur(10px);
   box-shadow: 0 1px 0 var(--gray-200);
 }
@@ -556,7 +567,7 @@ html:not(.js) .hero-rotator { display: none; }
   position: relative;
   padding-left: 2rem;
   font-size: 1.1rem;
-  color: rgba(245, 239, 231, 0.75);
+  color: var(--on-dark-body);
 }
 .form-bullets li::before {
   content: "";
@@ -599,20 +610,20 @@ html:not(.js) .hero-rotator { display: none; }
 .form-group label {
   font-size: 0.9rem;
   font-weight: 500;
-  color: rgba(245, 239, 231, 0.7);
+  color: var(--on-dark-label);
 }
 .form-group input, .form-group select {
   font: inherit;
   font-weight: 500;
   color: var(--on-dark);
-  background: rgba(245, 239, 231, 0.06);
+  background: var(--dark-input-bg);
   border: 1px solid var(--dark-border);
   border-radius: 8px;
   padding: 0.8rem 1rem;
   transition: border-color 0.3s;
 }
 .form-group input::placeholder { color: var(--on-dark-faint); }
-.form-group input:hover, .form-group select:hover { border-color: rgba(245, 239, 231, 0.35); }
+.form-group input:hover, .form-group select:hover { border-color: var(--dark-input-hover); }
 .form-group input:focus, .form-group select:focus {
   outline: none;
   border-color: var(--on-dark);
@@ -626,12 +637,12 @@ html:not(.js) .hero-rotator { display: none; }
 }
 .form-group select option { color: var(--espresso); background: var(--white); }
 .form-group input[aria-invalid="true"], .form-group select[aria-invalid="true"] {
-  border-color: #E08A6D;
+  border-color: var(--danger-border);
 }
 .form-error {
   margin: 0;
   font-size: 0.8rem;
-  color: #E8A48C;
+  color: var(--danger-text);
 }
 .form-submit {
   width: 100%;
@@ -699,12 +710,46 @@ html:not(.js) .hero-rotator { display: none; }
 .footer-legal {
   margin: 0;
   font-size: 0.9rem;
-  color: rgba(245, 239, 231, 0.32);
+  color: var(--on-dark-legal);
   line-height: 1.8;
   max-width: 60rem;
 }
-.footer-link { color: rgba(245, 239, 231, 0.45); }
+.footer-link { color: var(--on-dark-link); }
 .footer-link:hover { color: var(--on-dark); }
+
+/* ---------- palette preview switcher ---------- */
+.theme-switcher {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.35rem 0.6rem;
+  background: rgba(0, 0, 0, 0.78);
+  color: #ffffff;
+  border-radius: 100px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  font-size: 0.9rem;
+}
+.theme-switcher button {
+  font: inherit;
+  font-size: 1.3rem;
+  line-height: 1;
+  min-width: 2.25rem;
+  min-height: 2.25rem;
+  padding: 0 0.35rem;
+  background: none;
+  border: 0;
+  border-radius: 100px;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 200ms;
+}
+.theme-switcher button:hover { background: rgba(255, 255, 255, 0.18); }
+.theme-switcher span { padding: 0 0.5rem; white-space: nowrap; }
 
 /* ---------- responsive ---------- */
 @media (max-width: 1024px) {
