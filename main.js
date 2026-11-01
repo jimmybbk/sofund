@@ -64,18 +64,55 @@
     }, 2400);
   }
 
-  /* ---------- product blocks: activate as they enter view (no scroll trapping) ---------- */
+  /* ---------- circle mask reveal ---------- */
+  var maskSection = document.querySelector(".mask-reveal");
+  var maskOverlay = document.getElementById("maskOverlay");
+  var maskContent = document.getElementById("maskContent");
+
+  if (maskSection && maskOverlay && !prefersReducedMotion) {
+    var syncMask = function () {
+      var rect = maskSection.getBoundingClientRect();
+      var span = maskSection.offsetHeight - window.innerHeight;
+      var progress = span > 0 ? Math.max(0, Math.min(1, -rect.top / span)) : 1;
+      maskOverlay.style.clipPath = "circle(" + (progress * 150) + "% at 50% 50%)";
+      maskContent.classList.toggle("visible", progress > 0.4);
+    };
+    window.addEventListener("scroll", syncMask, { passive: true });
+    window.addEventListener("resize", syncMask, { passive: true });
+    syncMask();
+  } else if (maskContent) {
+    maskContent.classList.add("visible");
+  }
+
+  /* ---------- scroll-driven fund slides ---------- */
+  var fundSection = document.querySelector(".fund-slides");
   var fundSlides = document.querySelectorAll(".fund-slide");
-  if ("IntersectionObserver" in window) {
-    var fio = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) {
-          e.target.classList.add("active");
-          fio.unobserve(e.target);
+
+  if (fundSection && fundSlides.length && !prefersReducedMotion) {
+    var currentSlide = 0;
+    fundSlides[0].classList.add("active");
+
+    var syncSlides = function () {
+      var rect = fundSection.getBoundingClientRect();
+      var span = fundSection.offsetHeight - window.innerHeight;
+      var scrolled = span > 0 ? -rect.top / span : 1;
+      if (scrolled >= 0 && scrolled <= 1) {
+        var total = fundSlides.length;
+        var activeIndex = Math.min(Math.floor(scrolled * total), total - 1);
+        if (activeIndex !== currentSlide) {
+          fundSlides[currentSlide].classList.remove("active");
+          fundSlides[activeIndex].classList.add("active");
+          currentSlide = activeIndex;
         }
-      });
-    }, { threshold: 0.2 });
-    fundSlides.forEach(function (s) { fio.observe(s); });
+      } else if (scrolled < 0 && currentSlide !== 0) {
+        fundSlides[currentSlide].classList.remove("active");
+        fundSlides[0].classList.add("active");
+        currentSlide = 0;
+      }
+    };
+    window.addEventListener("scroll", syncSlides, { passive: true });
+    window.addEventListener("resize", syncSlides, { passive: true });
+    syncSlides();
   } else {
     fundSlides.forEach(function (s) { s.classList.add("active"); });
   }

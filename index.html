@@ -13,7 +13,7 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230A1830'/%3E%3Cpath d='M16 6l8 5-8 5-8-5 8-5z' fill='%23F5B301'/%3E%3Cpath d='M16 17l8 5-8 5-8-5 8-5z' fill='%238FA3C2'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://api.fontshare.com">
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=4">
+  <link rel="stylesheet" href="styles.css?v=5">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -94,13 +94,23 @@
       </div>
     </section>
 
-    <!-- ============ FUND SLIDES (PRODUCTS) ============ -->
-    <section class="fund-slides" id="products" aria-labelledby="products-heading">
-      <div class="container fund-head sr">
-        <div class="section-label">Our products</div>
-        <h2 class="section-heading" id="products-heading">What we fund</h2>
+    <!-- ============ CIRCLE MASK REVEAL ============ -->
+    <section class="mask-reveal" id="mask-reveal" aria-labelledby="mask-heading">
+      <div class="mask-reveal-sticky">
+        <div class="mask-overlay" id="maskOverlay">
+          <div class="mask-content container" id="maskContent">
+            <div class="section-label">Our products</div>
+            <h2 class="section-heading" id="mask-heading">What we fund</h2>
+          </div>
+        </div>
       </div>
-          <div class="fund-slide">
+    </section>
+
+    <!-- ============ FUND SLIDES (PRODUCTS) ============ -->
+    <section class="fund-slides" id="products" style="--number: 4" aria-label="What we fund">
+      <div class="fund-slides-sticky">
+
+        <div class="fund-slide">
           <div class="container fund-slide-inner">
             <div class="fund-left">
               <div class="fund-title"><span>Business</span><span>Loans</span></div>
@@ -211,6 +221,8 @@
             </div>
           </div>
         </div>
+
+      </div>
     </section>
 
     <!-- ============ PROCESS ============ -->
@@ -416,6 +428,6 @@
     </div>
   </footer>
 
-  <script src="main.js?v=4"></script>
+  <script src="main.js?v=5"></script>
 </body>
 </html>
