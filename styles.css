@@ -760,8 +760,7 @@ html:not(.js) .hero-rotator { display: none; }
 }
 
 @media (max-width: 768px) {
-  /* shorter scroll holds on phones */
-  .fund-slides { height: calc(var(--number, 4) * 60vh); }
+  .mask-reveal-sticky { height: 72vh; min-height: 26rem; }
   .nav-right { display: none; }
   .nav-toggle { display: flex; }
   .nav-drawer.is-open { display: flex; }
