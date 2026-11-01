@@ -442,21 +442,31 @@ html:not(.js) .mask-overlay { clip-path: circle(140% at 85% 85%); }
 }
 .fund-line {
   position: relative;
-  padding: 0.5rem 0 0.65rem;
+  padding: 0.5rem 0 0.7rem;
   font-size: 0.98rem;
   letter-spacing: 0.01em;
   color: var(--gray-500);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s var(--ease-smooth), transform 0.6s var(--ease-smooth);
 }
+html:not(.js) .fund-line { opacity: 1; transform: none; }
+html:not(.js) .fund-line::after { transform: scaleX(1); }
 .fund-line::after {
   content: "";
   position: absolute;
   left: 0; bottom: 0;
-  width: 100%; height: 1px;
-  background: linear-gradient(90deg, var(--accent), var(--gray-200));
+  width: 100%; height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent), rgba(61, 107, 255, 0.25));
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.9s var(--ease-inout);
 }
+.fund-slide.active .fund-line { opacity: 1; transform: none; }
+.fund-slide.active .fund-line:nth-child(1) { transition-delay: 0.05s; }
+.fund-slide.active .fund-line:nth-child(2) { transition-delay: 0.15s; }
+.fund-slide.active .fund-line:nth-child(3) { transition-delay: 0.25s; }
 .fund-slide.active .fund-line::after { transform: scaleX(1); }
 .fund-slide.active .fund-line:nth-child(1)::after { transition-delay: 0.1s; }
 .fund-slide.active .fund-line:nth-child(2)::after { transition-delay: 0.2s; }
@@ -823,6 +833,7 @@ html:not(.js) .mask-overlay { clip-path: circle(140% at 85% 85%); }
   .fund-slides-sticky { position: static; height: auto; overflow: visible; }
   .fund-slide { position: static; opacity: 1; transform: none; pointer-events: auto; }
   .fund-slide-inner { padding: 4rem 0; }
+  .fund-line { opacity: 1; transform: none; }
   .fund-line::after { transform: scaleX(1); }
   .mask-content { opacity: 1; transition: none; }
   .mask-overlay { clip-path: circle(140% at 85% 85%); }
@@ -914,7 +925,8 @@ html:not(.js) .rv { opacity: 1; transform: none; }
 
 /* reduced motion: order-proof shutdown of the motion pass (this block is last) */
 @media (prefers-reduced-motion: reduce) {
-  .rv { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .rv, .fund-line { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .fund-line::after { transform: scaleX(1) !important; }
   .hero-glow, .scroll-progress, .hero-cta::after { display: none !important; }
   .js .nav, .js .nav .brand svg rect { animation: none !important; }
 }
