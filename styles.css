@@ -334,9 +334,12 @@ html:not(.js) .hero-rotator { display: none; }
 .mask-overlay {
   position: absolute;
   inset: 0;
-  background: var(--white);
+  background: #ffffff;
   clip-path: circle(0% at 50% 50%);
 }
+/* dark ink inside the white circle */
+.mask-content .section-label { color: #999999; }
+.mask-content .section-heading { color: #111111; }
 .mask-content {
   height: 100%;
   display: flex;
