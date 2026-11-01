@@ -64,6 +64,28 @@
     }, 2400);
   }
 
+  /* ---------- lender count: 1 -> 200 on entry ---------- */
+  var lenderEl = document.getElementById("lenderCount");
+  if (lenderEl && !prefersReducedMotion) {
+    var countStart = null, COUNT_DUR = 1400, COUNT_TARGET = 200;
+    var renderCount = function (v) { lenderEl.textContent = Math.round(v) + "+"; };
+    var countStep = function (now) {
+      if (countStart === null) { countStart = now; }
+      var p = Math.min((now - countStart) / COUNT_DUR, 1);
+      renderCount(1 + (COUNT_TARGET - 1) * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) { window.requestAnimationFrame(countStep); }
+    };
+    renderCount(1);
+    if ("IntersectionObserver" in window) {
+      var countIO = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { window.requestAnimationFrame(countStep); countIO.unobserve(e.target); }
+        });
+      }, { threshold: 0.5 });
+      countIO.observe(lenderEl);
+    } else { renderCount(COUNT_TARGET); }
+  }
+
   /* ---------- product blocks: activate on entry (no scroll hold) ---------- */
   var fundSlidesAll = document.querySelectorAll(".fund-slide");
   if ("IntersectionObserver" in window) {
