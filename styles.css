@@ -347,7 +347,7 @@ html:not(.js) .hero-rotator { display: none; }
 .mask-overlay {
   position: absolute;
   inset: 0;
-  background: #0B0B0E;
+  background: #8A8A96;
   clip-path: circle(0% at 85% 85%);
 }
 .mask-content {
