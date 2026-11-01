@@ -277,6 +277,13 @@ img, svg { display: inline-block; max-width: 100%; }
 html:not(.js) .hero-rotator { display: none; }
 
 .hero-body { margin-top: 4rem; }
+.hero-sub {
+  margin: 2.5rem 0 0;
+  max-width: 40rem;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--gray-500);
+}
 .hero-cta {
   display: inline-flex;
   align-items: center;
