@@ -6,35 +6,35 @@
    ============================================================ */
 
 :root {
-  /* theme: Electric Night — near-black page, light ink, electric blue accents */
-  --black: #F2F2F5;            /* strong ink: headings, rules */
-  --white: #0B0B0E;            /* page background */
-  --ink: #F2F2F5;
-  --gray-700: #B9B9C4;
-  --gray-500: #9A9AA8;
-  --gray-400: #7E7E8A;
-  --gray-200: #26262E;
-  --gray-100: #14141A;
+  /* theme: Daylight — white page, near-black ink, electric blue accents */
+  --black: #0B0B0E;            /* strong ink: headings, rules */
+  --white: #FFFFFF;            /* page background */
+  --ink: #0B0B0E;
+  --gray-700: #6A6A78;
+  --gray-500: #5C5C68;
+  --gray-400: #8A8A96;
+  --gray-200: #E4E4EA;
+  --gray-100: #F4F4F7;
 
   --accent: #3D6BFF;           /* CTAs and accents */
   --accent-hover: #5C82FF;
   --on-accent: #FFFFFF;
 
-  --espresso: #060609;         /* dark section background */
-  --on-dark: #F2F2F5;
-  --on-dark-muted: rgba(242, 242, 245, 0.62);
-  --on-dark-faint: rgba(242, 242, 245, 0.4);
-  --on-dark-label: rgba(242, 242, 245, 0.7);
-  --on-dark-body: rgba(242, 242, 245, 0.75);
-  --on-dark-legal: rgba(242, 242, 245, 0.32);
-  --on-dark-link: rgba(242, 242, 245, 0.45);
-  --dark-card: rgba(242, 242, 245, 0.05);
-  --dark-border: rgba(242, 242, 245, 0.14);
-  --dark-input-bg: rgba(242, 242, 245, 0.06);
-  --dark-input-hover: rgba(242, 242, 245, 0.35);
-  --nav-blur-bg: rgba(11, 11, 14, 0.9);
-  --danger-border: #FF9B9B;
-  --danger-text: #FFB3B3;
+  --espresso: #FFFFFF;         /* statement-band background */
+  --on-dark: #0B0B0E;
+  --on-dark-muted: rgba(11, 11, 14, 0.62);
+  --on-dark-faint: rgba(11, 11, 14, 0.4);
+  --on-dark-label: rgba(11, 11, 14, 0.7);
+  --on-dark-body: rgba(11, 11, 14, 0.75);
+  --on-dark-legal: rgba(11, 11, 14, 0.38);
+  --on-dark-link: rgba(11, 11, 14, 0.55);
+  --dark-card: rgba(11, 11, 14, 0.03);
+  --dark-border: rgba(11, 11, 14, 0.12);
+  --dark-input-bg: rgba(11, 11, 14, 0.03);
+  --dark-input-hover: rgba(11, 11, 14, 0.35);
+  --nav-blur-bg: rgba(255, 255, 255, 0.9);
+  --danger-border: #E5484D;
+  --danger-text: #D92D20;
 
   --ease-inout: cubic-bezier(0.77, 0, 0.175, 1);
   --ease-smooth: cubic-bezier(0.16, 1.08, 0.38, 0.98);
@@ -347,7 +347,7 @@ html:not(.js) .hero-rotator { display: none; }
 .mask-overlay {
   position: absolute;
   inset: 0;
-  background: #ffffff;
+  background: #0B0B0E;
   clip-path: circle(0% at 85% 85%);
 }
 .mask-content {
@@ -363,8 +363,8 @@ html:not(.js) .hero-rotator { display: none; }
 html:not(.js) .mask-content { opacity: 1; }
 html:not(.js) .mask-overlay { clip-path: circle(140% at 85% 85%); }
 .mask-content > * { width: fit-content; }
-.mask-reveal .section-label { color: rgba(255, 255, 255, 0.55); }
-.mask-reveal .section-heading { color: #ffffff; }
+.mask-reveal .section-label { color: rgba(11, 11, 14, 0.55); }
+.mask-reveal .section-heading { color: #0B0B0E; }
 
 /* ---------- fund slides (products) ---------- */
 .fund-slides {
@@ -653,7 +653,7 @@ html:not(.js) .mask-overlay { clip-path: circle(140% at 85% 85%); }
   background-repeat: no-repeat;
   background-position: right 1rem center;
 }
-.form-group select option { color: var(--espresso); background: var(--white); }
+.form-group select option { color: var(--black); background: var(--white); }
 .form-group input[aria-invalid="true"], .form-group select[aria-invalid="true"] {
   border-color: var(--danger-border);
 }
