@@ -117,6 +117,8 @@
     fundSlides.forEach(function (s) { s.classList.add("active"); });
   }
 
+
+
   /* ---------- application form: validate, then submit natively ---------- */
   var form = document.getElementById("applyForm");
 
