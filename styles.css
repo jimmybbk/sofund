@@ -6,36 +6,35 @@
    ============================================================ */
 
 :root {
-  /* default theme: mono (black on white). Every themed color is a token —
-     the palette switcher in main.js overrides these per theme. */
-  --black: #000000;            /* strong ink: headings, rules */
-  --white: #ffffff;            /* page background */
-  --ink: #111111;
-  --gray-700: #333333;
-  --gray-500: #555555;
-  --gray-400: #999999;
-  --gray-200: #e8e8e8;
-  --gray-100: #f7f7f7;
+  /* theme: Midnight Gold — deep navy page, light ink, gold accents */
+  --black: #F4F7FB;            /* strong ink: headings, rules */
+  --white: #0A1830;            /* page background */
+  --ink: #F4F7FB;
+  --gray-700: #C7D2E6;
+  --gray-500: #A9B8D4;
+  --gray-400: #8FA3C2;
+  --gray-200: #22355A;
+  --gray-100: #0F2242;
 
-  --accent: #000000;           /* CTAs and accents */
-  --accent-hover: #000000;
-  --on-accent: #ffffff;
+  --accent: #F5B301;           /* CTAs and accents */
+  --accent-hover: #FFC42E;
+  --on-accent: #1A1205;
 
-  --espresso: #000000;         /* dark section background */
-  --on-dark: #ffffff;
-  --on-dark-muted: rgba(255, 255, 255, 0.62);
-  --on-dark-faint: rgba(255, 255, 255, 0.4);
-  --on-dark-label: rgba(255, 255, 255, 0.7);
-  --on-dark-body: rgba(255, 255, 255, 0.75);
-  --on-dark-legal: rgba(255, 255, 255, 0.32);
-  --on-dark-link: rgba(255, 255, 255, 0.45);
-  --dark-card: rgba(255, 255, 255, 0.05);
-  --dark-border: rgba(255, 255, 255, 0.14);
-  --dark-input-bg: rgba(255, 255, 255, 0.06);
-  --dark-input-hover: rgba(255, 255, 255, 0.35);
-  --nav-blur-bg: rgba(255, 255, 255, 0.92);
-  --danger-border: #ff6b6b;
-  --danger-text: #ff9b9b;
+  --espresso: #071022;         /* dark section background */
+  --on-dark: #F4F7FB;
+  --on-dark-muted: rgba(244, 247, 251, 0.62);
+  --on-dark-faint: rgba(244, 247, 251, 0.4);
+  --on-dark-label: rgba(244, 247, 251, 0.7);
+  --on-dark-body: rgba(244, 247, 251, 0.75);
+  --on-dark-legal: rgba(244, 247, 251, 0.32);
+  --on-dark-link: rgba(244, 247, 251, 0.45);
+  --dark-card: rgba(244, 247, 251, 0.05);
+  --dark-border: rgba(244, 247, 251, 0.14);
+  --dark-input-bg: rgba(244, 247, 251, 0.06);
+  --dark-input-hover: rgba(244, 247, 251, 0.35);
+  --nav-blur-bg: rgba(10, 24, 48, 0.9);
+  --danger-border: #FFD9A8;
+  --danger-text: #FFD9A8;
 
   --ease-inout: cubic-bezier(0.77, 0, 0.175, 1);
   --ease-smooth: cubic-bezier(0.16, 1.08, 0.38, 0.98);
@@ -631,7 +630,7 @@ html:not(.js) .hero-rotator { display: none; }
 .form-group select {
   cursor: pointer;
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A7B70' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238FA3C2' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 1rem center;
 }
@@ -716,40 +715,6 @@ html:not(.js) .hero-rotator { display: none; }
 }
 .footer-link { color: var(--on-dark-link); }
 .footer-link:hover { color: var(--on-dark); }
-
-/* ---------- palette preview switcher ---------- */
-.theme-switcher {
-  position: fixed;
-  bottom: 1rem;
-  right: 1rem;
-  z-index: 200;
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  padding: 0.35rem 0.6rem;
-  background: rgba(0, 0, 0, 0.78);
-  color: #ffffff;
-  border-radius: 100px;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
-  font-size: 0.9rem;
-}
-.theme-switcher button {
-  font: inherit;
-  font-size: 1.3rem;
-  line-height: 1;
-  min-width: 2.25rem;
-  min-height: 2.25rem;
-  padding: 0 0.35rem;
-  background: none;
-  border: 0;
-  border-radius: 100px;
-  color: #ffffff;
-  cursor: pointer;
-  transition: background 200ms;
-}
-.theme-switcher button:hover { background: rgba(255, 255, 255, 0.18); }
-.theme-switcher span { padding: 0 0.5rem; white-space: nowrap; }
 
 /* ---------- responsive ---------- */
 @media (max-width: 1024px) {
