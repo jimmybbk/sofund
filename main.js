@@ -64,39 +64,22 @@
     }, 2400);
   }
 
-
-  /* ---------- scroll-driven fund slides ---------- */
-  var fundSection = document.querySelector(".fund-slides");
-  var fundSlides = document.querySelectorAll(".fund-slide");
-
-  if (fundSection && fundSlides.length && !prefersReducedMotion) {
-    var currentSlide = 0;
-    fundSlides[0].classList.add("active");
-
-    var syncSlides = function () {
-      var rect = fundSection.getBoundingClientRect();
-      var span = fundSection.offsetHeight - window.innerHeight;
-      var scrolled = span > 0 ? -rect.top / span : 1;
-      if (scrolled >= 0 && scrolled <= 1) {
-        var total = fundSlides.length;
-        var activeIndex = Math.min(Math.floor(scrolled * total), total - 1);
-        if (activeIndex !== currentSlide) {
-          fundSlides[currentSlide].classList.remove("active");
-          fundSlides[activeIndex].classList.add("active");
-          currentSlide = activeIndex;
+  /* ---------- product blocks: activate on entry (no scroll hold) ---------- */
+  var fundSlidesAll = document.querySelectorAll(".fund-slide");
+  if ("IntersectionObserver" in window) {
+    var slideIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add("active");
+          slideIO.unobserve(e.target);
         }
-      } else if (scrolled < 0 && currentSlide !== 0) {
-        fundSlides[currentSlide].classList.remove("active");
-        fundSlides[0].classList.add("active");
-        currentSlide = 0;
-      }
-    };
-    window.addEventListener("scroll", syncSlides, { passive: true });
-    window.addEventListener("resize", syncSlides, { passive: true });
-    syncSlides();
+      });
+    }, { threshold: 0.2 });
+    fundSlidesAll.forEach(function (s) { slideIO.observe(s); });
   } else {
-    fundSlides.forEach(function (s) { s.classList.add("active"); });
+    fundSlidesAll.forEach(function (s) { s.classList.add("active"); });
   }
+
 
 
 
@@ -107,10 +90,9 @@
   var maskContent = document.getElementById("maskContent");
 
   if (maskSection && maskOverlay && !prefersReducedMotion) {
+    var maskProgress = 0;
     var syncMask = function () {
-      var rect = maskSection.getBoundingClientRect();
-      var span = maskSection.offsetHeight - window.innerHeight;
-      var progress = span > 0 ? Math.max(0, Math.min(1, -rect.top / span)) : 1;
+      var progress = maskProgress;
 
       // disc grows from the bottom-right; cap the radius just short of the heading
       var ref = Math.hypot(window.innerWidth, window.innerHeight) / Math.SQRT2;
@@ -125,9 +107,25 @@
       maskOverlay.style.clipPath = "circle(" + radius + "% at 85% 85%)";
       maskContent.classList.toggle("visible", progress > 0.12);
     };
-    window.addEventListener("scroll", syncMask, { passive: true });
-    window.addEventListener("resize", syncMask, { passive: true });
-    syncMask();
+    var runRamp = function () {
+      var t0 = null, DUR = 1400;
+      var step = function (now) {
+        if (t0 === null) { t0 = now; }
+        var p = Math.min((now - t0) / DUR, 1);
+        maskProgress = 1 - Math.pow(1 - p, 3);
+        syncMask();
+        if (p < 1) { window.requestAnimationFrame(step); }
+      };
+      window.requestAnimationFrame(step);
+    };
+    if ("IntersectionObserver" in window) {
+      var maskIO = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { runRamp(); maskIO.unobserve(e.target); }
+        });
+      }, { threshold: 0.35 });
+      maskIO.observe(maskSection);
+    } else { runRamp(); }
   } else if (maskContent) {
     maskContent.classList.add("visible");
   }
