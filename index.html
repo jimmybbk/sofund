@@ -13,7 +13,7 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230B0B0E'/%3E%3Cpath d='M16 6l8 5-8 5-8-5 8-5z' fill='%233D6BFF'/%3E%3Cpath d='M16 17l8 5-8 5-8-5 8-5z' fill='%237E7E8A'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://api.fontshare.com">
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=10">
+  <link rel="stylesheet" href="styles.css?v=11">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -54,6 +54,13 @@
   <main id="main">
     <!-- ============ HERO ============ -->
     <section class="hero" id="top">
+      <div class="hero-bg" aria-hidden="true">
+          <img src="https://images.unsplash.com/photo-1760129745096-a59b25d7264d?auto=format&fit=crop&w=1600&h=900&q=75"
+               srcset="https://images.unsplash.com/photo-1760129745096-a59b25d7264d?auto=format&fit=crop&w=800&h=450&q=75 800w,
+                       https://images.unsplash.com/photo-1760129745096-a59b25d7264d?auto=format&fit=crop&w=1600&h=900&q=75 1600w,
+                       https://images.unsplash.com/photo-1760129745096-a59b25d7264d?auto=format&fit=crop&w=2400&h=1350&q=80 2400w"
+               sizes="100vw" alt="" decoding="async">
+        </div>
       <div class="container">
         <h1 class="hero-headline sr">
           <span class="visually-hidden">Funding for growth, equipment, cash flow, property or your business.</span>
@@ -97,14 +104,7 @@
     <!-- ============ CIRCLE MASK REVEAL ============ -->
     <section class="mask-reveal" id="mask-reveal" aria-labelledby="mask-heading">
       <div class="mask-reveal-sticky">
-        <div class="mask-bg" aria-hidden="true">
-          <img src="https://images.unsplash.com/photo-1760129745096-a59b25d7264d?auto=format&fit=crop&w=1600&h=900&q=75"
-               srcset="https://images.unsplash.com/photo-1760129745096-a59b25d7264d?auto=format&fit=crop&w=800&h=450&q=75 800w,
-                       https://images.unsplash.com/photo-1760129745096-a59b25d7264d?auto=format&fit=crop&w=1600&h=900&q=75 1600w,
-                       https://images.unsplash.com/photo-1760129745096-a59b25d7264d?auto=format&fit=crop&w=2400&h=1350&q=80 2400w"
-               sizes="100vw" alt="" decoding="async">
-        </div>
-        <div class="mask-overlay" id="maskOverlay">
+                <div class="mask-overlay" id="maskOverlay">
           <div class="mask-content container" id="maskContent">
             <div class="section-label">Our products</div>
             <h2 class="section-heading" id="mask-heading">What we fund</h2>
@@ -435,6 +435,6 @@
     </div>
   </footer>
 
-  <script src="main.js?v=10"></script>
+  <script src="main.js?v=11"></script>
 </body>
 </html>
