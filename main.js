@@ -64,26 +64,58 @@
     }, 2400);
   }
 
-  /* ---------- lender count: 1 -> 200 on entry ---------- */
-  var lenderEl = document.getElementById("lenderCount");
-  if (lenderEl && !prefersReducedMotion) {
-    var countStart = null, COUNT_DUR = 1400, COUNT_TARGET = 200;
-    var renderCount = function (v) { lenderEl.textContent = Math.round(v) + "+"; };
-    var countStep = function (now) {
-      if (countStart === null) { countStart = now; }
-      var p = Math.min((now - countStart) / COUNT_DUR, 1);
-      renderCount(1 + (COUNT_TARGET - 1) * (1 - Math.pow(1 - p, 3)));
-      if (p < 1) { window.requestAnimationFrame(countStep); }
+  /* ---------- stat count-ups: any [data-count] animates on entry ---------- */
+  var countEls = document.querySelectorAll("[data-count]");
+  if (countEls.length && !prefersReducedMotion && "IntersectionObserver" in window) {
+    var runCount = function (el) {
+      var target = parseFloat(el.getAttribute("data-count")) || 0;
+      var pre = el.getAttribute("data-prefix") || "";
+      var suf = el.getAttribute("data-suffix") || "";
+      var render = function (v) { el.textContent = pre + Math.round(v) + suf; };
+      var t0 = null, DUR = 1400;
+      var step = function (now) {
+        if (t0 === null) { t0 = now; }
+        var pr = Math.min((now - t0) / DUR, 1);
+        render(target * (1 - Math.pow(1 - pr, 3)));
+        if (pr < 1) { window.requestAnimationFrame(step); }
+      };
+      render(0);
+      window.requestAnimationFrame(step);
     };
-    renderCount(1);
-    if ("IntersectionObserver" in window) {
-      var countIO = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) { window.requestAnimationFrame(countStep); countIO.unobserve(e.target); }
-        });
-      }, { threshold: 0.5 });
-      countIO.observe(lenderEl);
-    } else { renderCount(COUNT_TARGET); }
+    var countIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { runCount(e.target); countIO.unobserve(e.target); }
+      });
+    }, { threshold: 0.5 });
+    countEls.forEach(function (el) { countIO.observe(el); });
+  }
+
+  /* ---------- zoom reveals for imagery ---------- */
+  var rvEls = document.querySelectorAll(".rv");
+  if (rvEls.length && !prefersReducedMotion && "IntersectionObserver" in window) {
+    var rvIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("rv-in"); rvIO.unobserve(e.target); }
+      });
+    }, { threshold: 0.2 });
+    rvEls.forEach(function (el) { rvIO.observe(el); });
+  } else {
+    rvEls.forEach(function (el) { el.classList.add("rv-in"); });
+  }
+
+  /* ---------- scroll progress bar ---------- */
+  if (!prefersReducedMotion) {
+    var spBar = document.createElement("div");
+    spBar.className = "scroll-progress";
+    spBar.setAttribute("aria-hidden", "true");
+    document.body.appendChild(spBar);
+    var spTick = function () {
+      var root = document.documentElement;
+      var max = root.scrollHeight - root.clientHeight;
+      spBar.style.transform = "scaleX(" + (max > 0 ? root.scrollTop / max : 0) + ")";
+    };
+    window.addEventListener("scroll", spTick, { passive: true });
+    spTick();
   }
 
   /* ---------- product blocks: activate on entry (no scroll hold) ---------- */

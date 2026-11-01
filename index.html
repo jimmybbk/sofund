@@ -35,7 +35,7 @@
     "slogan": "Funding for your business, quoted in writing."
   }
   </script>
-  <link rel="stylesheet" href="styles.css?v=28">
+  <link rel="stylesheet" href="styles.css?v=29">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -73,6 +73,8 @@
   <main id="main">
     <!-- ============ HERO ============ -->
     <section class="hero" id="top">
+      <div class="hero-glow hero-glow-a" aria-hidden="true"></div>
+      <div class="hero-glow hero-glow-b" aria-hidden="true"></div>
       
       <div class="container">
         <h1 class="hero-headline sr">
@@ -98,15 +100,15 @@
     <section class="stats-section" aria-label="Key figures">
       <div class="container stats-row">
         <div class="stat sr">
-          <div class="stat-number" id="lenderCount">200+</div>
+          <div class="stat-number" id="lenderCount" data-count="200" data-suffix="+">200+</div>
           <div class="stat-label">Lenders on our panel</div>
         </div>
         <div class="stat sr sr-d1">
-          <div class="stat-number">$5M</div>
+          <div class="stat-number" data-count="5" data-prefix="$" data-suffix="M">$5M</div>
           <div class="stat-label">Maximum facility</div>
         </div>
         <div class="stat sr sr-d2">
-          <div class="stat-number">48h</div>
+          <div class="stat-number" data-count="48" data-suffix="h">48h</div>
           <div class="stat-label">Fastest written options</div>
         </div>
         <div class="stat sr sr-d3">
@@ -137,7 +139,7 @@
               <div class="fund-title"><span>Business</span><span>Loans</span></div>
               <p class="fund-text">$15k to $5M for any business purpose — cash flow, growth, stock,
                 ATO debts, refinancing. Secured and unsecured business loans, and some lenders settle next day.</p>
-              <figure class="fund-figure">
+              <figure class="fund-figure rv">
                 <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&h=267&q=75"
                      srcset="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=400&h=133&q=75 400w, https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&h=267&q=75 800w"
                      sizes="(min-width: 1024px) 34rem, 90vw"
@@ -167,7 +169,7 @@
             <div class="fund-left">
               <div class="fund-title"><span>Asset &amp;</span><span>Equipment Finance</span></div>
               <p class="fund-text">Equipment finance for machinery, vehicles, technology and fit-outs — chattel mortgages, leases and hire purchase. The asset secures the deal, so you keep your working capital free.</p>
-              <figure class="fund-figure">
+              <figure class="fund-figure rv">
                 <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&h=267&q=75"
                      srcset="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=400&h=133&q=75 400w, https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&h=267&q=75 800w"
                      sizes="(min-width: 1024px) 34rem, 90vw"
@@ -197,7 +199,7 @@
             <div class="fund-left">
               <div class="fund-title"><span>Invoice</span><span>Finance</span></div>
               <p class="fund-text">Invoice finance and factoring that turns unpaid invoices into cash this week — stop bankrolling your customers' payment terms.</p>
-              <figure class="fund-figure">
+              <figure class="fund-figure rv">
                 <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&h=267&q=75"
                      srcset="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=400&h=133&q=75 400w, https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&h=267&q=75 800w"
                      sizes="(min-width: 1024px) 34rem, 90vw"
@@ -227,7 +229,7 @@
             <div class="fund-left">
               <div class="fund-title"><span>Commercial</span><span>Mortgages</span></div>
               <p class="fund-text">Commercial property loans to buy premises, refinance or release equity — for owner-occupiers and investors alike.</p>
-              <figure class="fund-figure">
+              <figure class="fund-figure rv">
                 <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&h=267&q=75"
                      srcset="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=400&h=133&q=75 400w, https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&h=267&q=75 800w"
                      sizes="(min-width: 1024px) 34rem, 90vw"
@@ -335,7 +337,7 @@
           <p class="how-text">Lenders pay our fee, not you. If we can't get you a better deal than you
             already have, we'll say so and point you to whoever can.</p>
         </div>
-        <figure class="how-figure sr">
+        <figure class="how-figure rv">
           <img src="https://images.unsplash.com/photo-1601199591906-4e76cd585837?auto=format&fit=crop&w=1600&h=1067&q=80"
                srcset="https://images.unsplash.com/photo-1601199591906-4e76cd585837?auto=format&fit=crop&w=800&h=533&q=75 800w,
                        https://images.unsplash.com/photo-1601199591906-4e76cd585837?auto=format&fit=crop&w=1600&h=1067&q=80 1600w"
@@ -464,6 +466,6 @@
     </div>
   </footer>
 
-  <script src="main.js?v=24"></script>
+  <script src="main.js?v=25"></script>
 </body>
 </html>

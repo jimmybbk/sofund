@@ -243,7 +243,7 @@ img, svg { display: inline-block; max-width: 100%; }
 .js .sr.visible { opacity: 1; transform: none; }
 
 /* ---------- hero ---------- */
-.hero { padding: 12rem 0 8rem; }
+.hero { position: relative; overflow: hidden; padding: 12rem 0 8rem; }
 .hero-headline {
   margin: 0;
   font-size: clamp(2.8rem, 5vw, 6rem);
@@ -826,4 +826,89 @@ html:not(.js) .mask-overlay { clip-path: circle(140% at 85% 85%); }
   .fund-line::after { transform: scaleX(1); }
   .mask-content { opacity: 1; transition: none; }
   .mask-overlay { clip-path: circle(140% at 85% 85%); }
+}
+
+/* zoom reveals must never widen the page (full-bleed figures scale up) */
+html, body { overflow-x: hidden; }
+
+/* ---------- motion pass ---------- */
+@keyframes navDrop { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: none; } }
+@keyframes glowDriftA { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-6%, 5%) scale(1.12); } }
+@keyframes glowDriftB { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(5%, -4%) scale(1.09); } }
+@keyframes barGrow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+.js .nav { animation: navDrop 0.6s var(--ease-smooth) 0.05s both; }
+
+/* logo bars grow once on load */
+.nav .brand svg rect { transform-box: fill-box; transform-origin: 50% 100%; }
+.js .nav .brand svg rect { animation: barGrow 0.45s var(--ease-smooth) both; }
+.js .nav .brand svg rect:nth-of-type(1) { animation-delay: 0.35s; }
+.js .nav .brand svg rect:nth-of-type(2) { animation-delay: 0.45s; }
+.js .nav .brand svg rect:nth-of-type(3) { animation-delay: 0.55s; }
+
+/* soft ambient glow behind the hero */
+.hero-glow { position: absolute; border-radius: 50%; pointer-events: none; }
+.hero-glow-a {
+  width: 46vw; height: 46vw; right: -12vw; top: -14vw;
+  background: radial-gradient(circle, rgba(61, 107, 255, 0.09), transparent 65%);
+  filter: blur(48px);
+  animation: glowDriftA 16s ease-in-out infinite;
+}
+.hero-glow-b {
+  width: 38vw; height: 38vw; left: -14vw; bottom: -12vw;
+  background: radial-gradient(circle, rgba(11, 11, 14, 0.05), transparent 65%);
+  filter: blur(48px);
+  animation: glowDriftB 19s ease-in-out infinite;
+}
+
+/* zoom reveals for imagery */
+.rv { opacity: 0; transform: scale(1.045); transition: opacity 0.9s var(--ease-smooth), transform 1.2s var(--ease-smooth); }
+.rv.rv-in { opacity: 1; transform: none; }
+html:not(.js) .rv { opacity: 1; transform: none; }
+
+/* staggered cascades */
+.why-grid .why-cell:nth-child(2) { transition-delay: 0.1s; }
+.why-grid .why-cell:nth-child(3) { transition-delay: 0.2s; }
+.why-grid .why-cell:nth-child(4) { transition-delay: 0.3s; }
+.process-list .process-item:nth-child(2) { transition-delay: 0.08s; }
+.process-list .process-item:nth-child(3) { transition-delay: 0.16s; }
+.process-list .process-item:nth-child(4) { transition-delay: 0.24s; }
+.process-list .process-item:nth-child(5) { transition-delay: 0.32s; }
+
+/* hover lifts */
+.why-cell, .form-card { transition: transform 0.35s var(--ease-smooth), box-shadow 0.35s var(--ease-smooth); }
+.why-cell:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(11, 11, 14, 0.08); }
+.form-card:hover { transform: translateY(-2px); box-shadow: 0 18px 48px rgba(11, 11, 14, 0.1); }
+
+/* CTA arrow nudge */
+.hero-cta::after {
+  content: "92";
+  display: inline-block;
+  margin-left: 0.55rem;
+  transition: transform 0.3s var(--ease-smooth);
+}
+.hero-cta:hover::after { transform: translateX(5px); }
+
+/* scroll progress bar */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  z-index: 60;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .hero-glow-a { width: 90vw; height: 90vw; filter: blur(36px); }
+  .hero-glow-b { display: none; }
+}
+
+/* reduced motion: order-proof shutdown of the motion pass (this block is last) */
+@media (prefers-reduced-motion: reduce) {
+  .rv { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .hero-glow, .scroll-progress, .hero-cta::after { display: none !important; }
+  .js .nav, .js .nav .brand svg rect { animation: none !important; }
 }
