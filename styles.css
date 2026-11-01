@@ -1,40 +1,40 @@
 /* ============================================================
    Sofund — design system
-   Warm editorial palette: cream page, charcoal ink, terracotta
-   accent, espresso dark sections. Layout and mechanics identical
+   Electric Night palette: near-black page, light ink, electric
+   blue accents, deeper-black dark sections. Layout and mechanics identical
    to the centryx-style build. Type: Satoshi (Fontshare).
    ============================================================ */
 
 :root {
-  /* theme: Midnight Gold — deep navy page, light ink, gold accents */
-  --black: #F4F7FB;            /* strong ink: headings, rules */
-  --white: #0A1830;            /* page background */
-  --ink: #F4F7FB;
-  --gray-700: #C7D2E6;
-  --gray-500: #A9B8D4;
-  --gray-400: #8FA3C2;
-  --gray-200: #22355A;
-  --gray-100: #0F2242;
+  /* theme: Electric Night — near-black page, light ink, electric blue accents */
+  --black: #F2F2F5;            /* strong ink: headings, rules */
+  --white: #0B0B0E;            /* page background */
+  --ink: #F2F2F5;
+  --gray-700: #B9B9C4;
+  --gray-500: #9A9AA8;
+  --gray-400: #7E7E8A;
+  --gray-200: #26262E;
+  --gray-100: #14141A;
 
-  --accent: #F5B301;           /* CTAs and accents */
-  --accent-hover: #FFC42E;
-  --on-accent: #1A1205;
+  --accent: #3D6BFF;           /* CTAs and accents */
+  --accent-hover: #5C82FF;
+  --on-accent: #FFFFFF;
 
-  --espresso: #071022;         /* dark section background */
-  --on-dark: #F4F7FB;
-  --on-dark-muted: rgba(244, 247, 251, 0.62);
-  --on-dark-faint: rgba(244, 247, 251, 0.4);
-  --on-dark-label: rgba(244, 247, 251, 0.7);
-  --on-dark-body: rgba(244, 247, 251, 0.75);
-  --on-dark-legal: rgba(244, 247, 251, 0.32);
-  --on-dark-link: rgba(244, 247, 251, 0.45);
-  --dark-card: rgba(244, 247, 251, 0.05);
-  --dark-border: rgba(244, 247, 251, 0.14);
-  --dark-input-bg: rgba(244, 247, 251, 0.06);
-  --dark-input-hover: rgba(244, 247, 251, 0.35);
-  --nav-blur-bg: rgba(10, 24, 48, 0.9);
-  --danger-border: #FFD9A8;
-  --danger-text: #FFD9A8;
+  --espresso: #060609;         /* dark section background */
+  --on-dark: #F2F2F5;
+  --on-dark-muted: rgba(242, 242, 245, 0.62);
+  --on-dark-faint: rgba(242, 242, 245, 0.4);
+  --on-dark-label: rgba(242, 242, 245, 0.7);
+  --on-dark-body: rgba(242, 242, 245, 0.75);
+  --on-dark-legal: rgba(242, 242, 245, 0.32);
+  --on-dark-link: rgba(242, 242, 245, 0.45);
+  --dark-card: rgba(242, 242, 245, 0.05);
+  --dark-border: rgba(242, 242, 245, 0.14);
+  --dark-input-bg: rgba(242, 242, 245, 0.06);
+  --dark-input-hover: rgba(242, 242, 245, 0.35);
+  --nav-blur-bg: rgba(11, 11, 14, 0.9);
+  --danger-border: #FF9B9B;
+  --danger-text: #FFB3B3;
 
   --ease-inout: cubic-bezier(0.77, 0, 0.175, 1);
   --ease-smooth: cubic-bezier(0.16, 1.08, 0.38, 0.98);
@@ -630,7 +630,7 @@ html:not(.js) .hero-rotator { display: none; }
 .form-group select {
   cursor: pointer;
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238FA3C2' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239A9AA8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 1rem center;
 }
