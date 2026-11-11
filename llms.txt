@@ -2,7 +2,7 @@
 
 > Australian invoice finance broker. One enquiry reaches 200+ lenders; written invoice finance options with lender confirmed rates within 48 hours.
 
-Zap Funds Pty Ltd arranges invoice finance and factoring for Australian companies, turning unpaid invoices into cash within 24 hours. Zap Funds is a broker, not a lender; lenders pay our fee, clients pay nothing upfront.
+Zap Funds arranges invoice finance and factoring for Australian companies, turning unpaid invoices into cash within 24 hours. Zap Funds is a broker, not a lender; lenders pay our fee, clients pay nothing upfront.
 
 Main site: https://jimmybbk.github.io/sofund/
 Privacy Policy: https://jimmybbk.github.io/sofund/privacy.html
