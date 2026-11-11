@@ -1,5 +1,5 @@
 /* ============================================================
-   Sofund — design system
+   Zap Funds — design system
    Electric Night palette: near-black page, light ink, electric
    blue accents, deeper-black dark sections. Layout and mechanics identical
    to the centryx-style build. Type: Satoshi (Fontshare).
@@ -713,6 +713,12 @@ html:not(.js) .fund-line::after { transform: scaleX(1); }
   letter-spacing: -0.03em;
   color: var(--on-dark);
   text-decoration: none;
+}
+.footer-contact {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
 }
 .footer-email {
   position: relative;

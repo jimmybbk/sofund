@@ -1,6 +1,6 @@
 # Sofund — sofund.com.au
 
-Single-page site for an Australian business-finance broker, built to mirror the
+Single-page site for an Australian invoice-finance broker (Zap Funds), built to mirror the
 centryx.finance layout and interaction model with original Australian content.
 Static HTML/CSS/JS — **no build step, no libraries** (verified: centryx itself
 uses none). Deploy the folder as-is to any host.
@@ -9,12 +9,11 @@ uses none). Deploy the folder as-is to any host.
 
 1. **Nav** — fixed, transparent → white blur on scroll, pill CTA, sliding link underlines
 2. **Hero** — sparse: "Funding for [rotating word]" + one CTA
-3. **Stats band** — 200+ lenders / $5M / 48h / $0, hairline top+bottom
+3. **Stats band** — 200+ lenders / $30M / 48h / $0, hairline top+bottom
 4. **Circle mask reveal** — 300vh black section; a white circle (clip-path) grows
    with scroll and reveals "What we fund"
-5. **Fund slides (#products)** — 320vh sticky section; four product slides swap as
-   you scroll (Business Loans, Asset & Equipment, Invoice Finance, Commercial
-   Mortgages), each with huge two-line title, figure, animated line bars
+5. **Fund slide (#products)** — single Invoice Finance block: huge two-line title,
+   figure, animated line bars (fades in on entry)
 6. **Process** — numbered ruled rows 01–05
 7. **Why us** — 2×2 hairline grid
 8. **How we work** — editorial copy
@@ -44,7 +43,8 @@ The only external services, same as centryx:
 
 ## Before you go live — placeholders to replace
 
-- **ABN / ACL** — footer (`ABN 00 000 000 000`, `ACL 000000`)
+- **ABN** — set: footer shows `ABN 16 229 282 801`. ACL references removed — add one
+  back if you ever obtain an Australian Credit Licence
 - **FormSubmit email** — form action in `index.html`
 - **Stats and product figures** — panel size, LVRs, terms
 - **Privacy / Terms / Credit Guide links** — currently `#`; an AU credit

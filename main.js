@@ -1,4 +1,4 @@
-/* Sofund — interactions (no libraries) */
+/* Zap Funds — interactions (no libraries) */
 (function () {
   "use strict";
 
