@@ -128,7 +128,7 @@ img, svg { display: inline-block; max-width: 100%; }
   color: var(--black);
   text-decoration: none;
 }
-.nav-logo .logo-funds { color: var(--accent); }
+.nav-logo-img { height: 2.25rem; width: auto; display: block; }
 .logo-mark { width: 1.6rem; height: 1.6rem; }
 .nav-right {
   display: flex;
@@ -705,6 +705,7 @@ html:not(.js) .fund-line::after { transform: scaleX(1); }
   flex-wrap: wrap;
   gap: 2rem;
 }
+.footer-logo-img { width: min(21rem, 100%); height: auto; display: block; }
 .footer-logo {
   display: flex;
   align-items: center;
