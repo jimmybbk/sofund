@@ -912,3 +912,103 @@ html:not(.js) .rv { opacity: 1; transform: none; }
   .hero-glow, .scroll-progress, .hero-cta::after { display: none !important; }
   .js .nav, .js .nav .brand svg rect { animation: none !important; }
 }
+
+/* ---------- about & blog ---------- */
+.page-heading {
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
+}
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.4s var(--ease-smooth), box-shadow 0.4s var(--ease-smooth);
+}
+.blog-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 36px rgba(11, 11, 14, 0.1);
+}
+.blog-card img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+}
+.blog-card-body {
+  padding: 1.3rem 1.4rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+.blog-card-date { font-size: 0.85rem; color: var(--gray-500); }
+.blog-card-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--black);
+}
+.blog-card-excerpt {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--gray-700);
+}
+.blog-card-more {
+  margin-top: auto;
+  padding-top: 0.6rem;
+  color: var(--accent);
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+.post-meta { font-size: 0.95rem; color: var(--gray-500); margin: 0 0 2rem; }
+.post-hero { margin: 0 0 2.5rem; }
+.post-hero img {
+  width: 100%;
+  aspect-ratio: 21 / 9;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid var(--gray-200);
+  display: block;
+}
+.post-body h2 {
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 2.5rem 0 1rem;
+  color: var(--black);
+}
+.post-body h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 2rem 0 0.75rem;
+  color: var(--black);
+}
+.post-body p { line-height: 1.8; color: var(--gray-700); margin: 0 0 1.2rem; }
+.post-body ul, .post-body ol {
+  color: var(--gray-700);
+  line-height: 1.8;
+  padding-left: 1.3rem;
+  margin: 0 0 1.2rem;
+}
+.post-body li { margin-bottom: 0.45rem; }
+.post-body a { color: var(--accent); }
+.post-cta {
+  margin-top: 3rem;
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  border-radius: 12px;
+  padding: 2rem;
+}
+.post-cta p { margin: 0 0 1.25rem; }
