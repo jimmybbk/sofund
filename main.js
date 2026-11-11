@@ -21,6 +21,15 @@
     document.querySelectorAll(".sr").forEach(function (el) { el.classList.add("visible"); });
   }
 
+  /* ---------- email obfuscation: assembled in the browser, never in the HTML ---------- */
+  var emailLink = document.getElementById("footerEmail");
+  if (emailLink) {
+    var addr = emailLink.getAttribute("data-user") + "@" + emailLink.getAttribute("data-domain");
+    emailLink.textContent = addr;
+    emailLink.setAttribute("href", "mailto:" + addr);
+    emailLink.removeAttribute("hidden");
+  }
+
   /* ---------- nav scroll state ---------- */
   var nav = document.getElementById("nav");
   if (nav) {
