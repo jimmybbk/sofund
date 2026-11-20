@@ -1012,3 +1012,6 @@ html:not(.js) .rv { opacity: 1; transform: none; }
   padding: 2rem;
 }
 .post-cta p { margin: 0 0 1.25rem; }
+
+/* pages with the fixed nav (about, blog, posts) need to clear it */
+.page-section { padding: clamp(8rem, 16vw, 11rem) 0 4rem; }
