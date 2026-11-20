@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Manager | Zap Funds</title>
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    :root { --blue: #3D6BFF; --ink: #0B0B0E; --line: #E4E4EA; --muted: #5C5C68; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, "Segoe UI", Arial, sans-serif; margin: 0; background: #F4F4F7; color: var(--ink); }
+    .wrap { max-width: 880px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+    h1 { font-size: 1.6rem; letter-spacing: -0.02em; margin: 0 0 4px; }
+    .sub { color: var(--muted); margin: 0 0 2rem; font-size: 0.95rem; }
+    .card { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 1.25rem 1.4rem; margin-bottom: 1.5rem; }
+    .card h2 { font-size: 1.05rem; margin: 0 0 1rem; }
+    label { display: block; font-size: 0.85rem; font-weight: 500; margin: 0.8rem 0 0.3rem; }
+    input[type=text], input[type=password], input[type=date], textarea {
+      width: 100%; padding: 0.6rem 0.7rem; border: 1px solid var(--line); border-radius: 8px;
+      font: inherit; font-size: 0.95rem; background: #fff;
+    }
+    textarea { resize: vertical; }
+    button {
+      font: inherit; font-size: 0.95rem; padding: 0.55rem 1.1rem; border-radius: 999px;
+      border: 1px solid var(--line); background: #fff; cursor: pointer; margin-top: 0.6rem;
+    }
+    button.primary { background: var(--blue); border-color: var(--blue); color: #fff; }
+    button.danger { color: #D92D20; border-color: #E5484D; }
+    button:hover { filter: brightness(0.97); }
+    .row { display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; }
+    .row > * { flex: 1 1 180px; }
+    .row button { flex: 0 0 auto; margin-top: 0; }
+    .status { font-size: 0.9rem; color: var(--muted); white-space: pre-line; }
+    .status.ok { color: #12805C; }
+    .status.err { color: #D92D20; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+    th, td { text-align: left; padding: 0.6rem 0.5rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { color: var(--muted); font-weight: 500; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    td.actions { white-space: nowrap; text-align: right; }
+    td.actions a, td.actions button { margin-left: 0.4rem; }
+    td.actions button { padding: 0.3rem 0.7rem; margin-top: 0; font-size: 0.85rem; }
+    .hint { font-size: 0.8rem; color: var(--muted); margin: 0.3rem 0 0; }
+    code { background: #F4F4F7; padding: 1px 5px; border-radius: 4px; font-size: 0.85em; }
+    .lock { text-align: center; padding: 3rem 1rem; }
+    a { color: var(--blue); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Zap Funds &mdash; Blog manager</h1>
+    <p class="sub">Publish and delete blog posts on zapfunds.com.au. Changes go live in about 1&ndash;2 minutes while GitHub rebuilds the site.</p>
+
+    <div class="card" id="tokenCard">
+      <h2>GitHub access</h2>
+      <label for="token">Personal access token (stored in this browser only)</label>
+      <input type="password" id="token" placeholder="github_pat_… or ghp_…" autocomplete="off">
+      <p class="hint">Create one at GitHub &rarr; Settings &rarr; Developer settings &rarr; Fine-grained tokens:
+        repository access <code>sofund</code> only, permission <code>Contents: Read and write</code>.</p>
+      <div class="row">
+        <button class="primary" id="saveToken">Connect</button>
+        <button id="clearToken">Forget token</button>
+        <span class="status" id="tokenStatus"></span>
+      </div>
+    </div>
+
+    <div id="app" style="display:none">
+      <div class="card">
+        <h2>Publish a new post</h2>
+        <label for="pTitle">Title</label>
+        <input type="text" id="pTitle" placeholder="How Invoice Finance Helped My Business Grow">
+        <div class="row">
+          <div>
+            <label for="pSlug">Address (slug)</label>
+            <input type="text" id="pSlug" placeholder="auto from title">
+          </div>
+          <div>
+            <label for="pDate">Date</label>
+            <input type="date" id="pDate">
+          </div>
+        </div>
+        <label for="pMeta">Byline line (shown above the article)</label>
+        <input type="text" id="pMeta" placeholder="Zap Funds | 21 November 2026">
+        <label for="pExcerpt">Listing summary (shown on the blog page)</label>
+        <textarea id="pExcerpt" rows="2" placeholder="One or two sentences summarising the post"></textarea>
+        <label for="pImage">Card image URL (optional)</label>
+        <input type="text" id="pImage" placeholder="default: business documents photo">
+        <label for="pContent">Article text</label>
+        <textarea id="pContent" rows="12" placeholder="Write the article here.&#10;&#10;Blank line starts a new paragraph.&#10;## A line starting with hash-hash is a heading&#10;- A line starting with dash is a bullet point"></textarea>
+        <p class="hint">Your text is published exactly as written: blank lines split paragraphs, <code>## Heading</code> lines become section headings, <code>- item</code> lines become bullet lists, <code>**bold**</code> becomes bold. Nothing is rewritten.</p>
+        <div class="row">
+          <button class="primary" id="publishBtn">Publish post</button>
+          <span class="status" id="publishStatus"></span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Published posts</h2>
+        <table>
+          <thead><tr><th>Title</th><th>Address</th><th>Date</th><th></th></tr></thead>
+          <tbody id="postRows"></tbody>
+        </table>
+        <div class="row">
+          <button id="refreshBtn">Refresh list</button>
+          <a href="/blog/" target="_blank" rel="noopener">Open blog page &rarr;</a>
+        </div>
+        <div class="status" id="listStatus"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    "use strict";
+    var OWNER = "jimmybbk", REPO = "sofund", BRANCH = "main";
+    var API = "https://api.github.com";
+    var TOKEN_KEY = "zf_panel_token";
+    var token = "";
+    var posts = [];
+    var postsSha = "";
+
+    var $ = function (id) { return document.getElementById(id); };
+    function setStatus(id, msg, cls) {
+      var el = $(id); el.textContent = msg; el.className = "status" + (cls ? " " + cls : "");
+    }
+
+    function b64encode(str) {
+      var bytes = new TextEncoder().encode(str), bin = "", i;
+      for (i = 0; i < bytes.length; i += 0x8000) {
+        bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+      }
+      return btoa(bin);
+    }
+    function b64decode(b64) {
+      var bin = atob(b64.replace(/\s/g, ""));
+      var bytes = new Uint8Array(bin.length), i;
+      for (i = 0; i < bin.length; i++) { bytes[i] = bin.charCodeAt(i); }
+      return new TextDecoder().decode(bytes);
+    }
+
+    function gh(path, method, body) {
+      return fetch(API + path, {
+        method: method || "GET",
+        headers: {
+          "Authorization": "Bearer " + token,
+          "Accept": "application/vnd.github+json",
+          "Content-Type": "application/json"
+        },
+        body: body ? JSON.stringify(body) : undefined
+      }).then(function (r) {
+        if (!r.ok) {
+          return r.json().catch(function () { return {}; }).then(function (e) {
+            var msg = (e && e.message) ? e.message : ("HTTP " + r.status);
+            if (r.status === 401) { msg = "Token rejected (401). Check the token is correct and not expired."; }
+            if (r.status === 403) { msg = "Access denied (403). The token needs Contents: Read and write on the sofund repository."; }
+            throw new Error(msg);
+          });
+        }
+        return r.json();
+      });
+    }
+    function getJson(path) {
+      return gh(path).then(function (data) {
+        var text = data.encoding === "base64" ? b64decode(data.content) : data.content;
+        return { sha: data.sha, text: text };
+      });
+    }
+    function putFile(path, message, content, sha) {
+      return gh(path, "PUT", { message: message, content: b64encode(content), sha: sha || undefined, branch: BRANCH });
+    }
+    function deleteFile(path, sha, message) {
+      return gh(path, "DELETE", { message: message, sha: sha, branch: BRANCH });
+    }
+
+    function slugify(t) {
+      return t.toLowerCase().replace(/&/g, " and ").replace(/[^a-z0-9\s-]/g, "")
+        .trim().replace(/\s+/g, "-").replace(/-+/g, "-").slice(0, 60);
+    }
+    function contentToHtml(t) {
+      var lines = t.replace(/\r/g, "").split("\n");
+      var out = [], ul = null, buf = [];
+      function inline(s) { return s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
+      function closeAll() {
+        if (buf.length) { out.push("<p>" + buf.map(inline).join(" ") + "</p>"); buf = []; }
+        if (ul) { out.push("<ul>" + ul.map(function (i) { return "<li>" + inline(i) + "</li>"; }).join("") + "</ul>"); ul = null; }
+      }
+      lines.forEach(function (raw) {
+        var line = raw.trim();
+        if (!line) { closeAll(); return; }
+        if (line.indexOf("## ") === 0) { closeAll(); out.push("<h2>" + inline(line.slice(3)) + "</h2>"); return; }
+        if (line.indexOf("### ") === 0) { closeAll(); out.push("<h3>" + inline(line.slice(4)) + "</h3>"); return; }
+        if (line.indexOf("- ") === 0) { if (buf.length) closeAll(); if (!ul) ul = []; ul.push(line.slice(2)); return; }
+        buf.push(line);
+      });
+      closeAll();
+      return out.join("\n");
+    }
+    function esc(s) {
+      return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+    function cardHtml(p) {
+      return '          <a class="blog-card" href="/blog/' + p.slug + '/">\n' +
+        '            <img src="' + (p.image || "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&h=450&q=75") + '"\n' +
+        '                 alt="" loading="lazy" decoding="async">\n' +
+        '            <div class="blog-card-body">\n' +
+        '              <span class="blog-card-date">' + esc(p.meta || p.date) + '</span>\n' +
+        '              <h2 class="blog-card-title">' + esc(p.title) + '</h2>\n' +
+        '              <p class="blog-card-excerpt">' + esc(p.excerpt || "") + '</p>\n' +
+        '              <span class="blog-card-more">Read the article &rarr;</span>\n' +
+        '            </div>\n' +
+        '          </a>';
+    }
+    function postPageHtml(p, contentHtml) {
+      return '<!DOCTYPE html>\n<html lang="en-AU">\n<head>\n' +
+'  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
+'  <title>' + esc(p.title) + ' | Zap Funds</title>\n' +
+'  <meta name="description" content="' + esc(p.excerpt || p.title) + '">\n' +
+'  <link rel="canonical" href="https://zapfunds.com.au/blog/' + p.slug + '/">\n' +
+'  <meta property="og:title" content="' + esc(p.title) + '">\n' +
+'  <meta property="og:description" content="' + esc(p.excerpt || p.title) + '">\n' +
+'  <meta property="og:type" content="article">\n' +
+'  <meta property="og:url" content="https://zapfunds.com.au/blog/' + p.slug + '/">\n' +
+'  <meta property="og:image" content="https://zapfunds.com.au/og-image.png">\n' +
+'  <meta property="og:site_name" content="Zap Funds">\n  <meta property="og:locale" content="en_AU">\n' +
+'  <meta name="twitter:card" content="summary_large_image">\n' +
+'  <meta name="twitter:title" content="' + esc(p.title) + '">\n' +
+'  <meta name="twitter:image" content="https://zapfunds.com.au/og-image.png">\n' +
+'  <meta name="robots" content="index, follow, max-image-preview:large">\n  <meta name="theme-color" content="#0B0B0E">\n' +
+'  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">\n' +
+'  <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64.png">\n' +
+'  <link rel="preconnect" href="https://api.fontshare.com">\n' +
+'  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">\n' +
+'  <link rel="stylesheet" href="/styles.css?v=39">\n' +
+'  <script type="application/ld+json">\n  {\n    "@context": "https://schema.org",\n    "@type": "BlogPosting",\n' +
+'    "headline": "' + esc(p.title).replace(/"/g, "") + '",\n    "image": "https://zapfunds.com.au/og-image.png",\n' +
+'    "datePublished": "' + p.dateISO + '",\n    "author": { "@type": "Person", "name": "Wayne Clothier" },\n' +
+'    "publisher": { "@type": "Organization", "name": "Zap Funds" },\n' +
+'    "mainEntityOfPage": "https://zapfunds.com.au/blog/' + p.slug + '/"\n  }\n  </script>\n</head>\n<body>\n' +
+'  <a class="skip-link" href="#main">Skip to main content</a>\n\n  <header class="nav" id="nav">\n' +
+'    <div class="container nav-inner">\n      <a href="/" class="nav-logo" aria-label="Zap Funds home">\n' +
+'        <picture><source type="image/webp" srcset="/logo.webp"><img src="/logo.png" alt="" class="nav-logo-img" width="980" height="197"></picture>\n      </a>\n' +
+'      <nav class="nav-right" aria-label="Primary">\n        <ul class="nav-links">\n' +
+'          <li><a class="nav-link" href="/#products">Invoice Finance</a></li>\n          <li><a class="nav-link" href="/#process">Process</a></li>\n' +
+'          <li><a class="nav-link" href="/#why">Why us</a></li>\n          <li><a class="nav-link" href="/about/">About</a></li>\n' +
+'        </ul>\n        <a href="/#apply" class="nav-cta">Get your options</a>\n      </nav>\n' +
+'      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navDrawer">\n' +
+'        <span class="nav-toggle-bar" aria-hidden="true"></span><span class="nav-toggle-bar" aria-hidden="true"></span><span class="nav-toggle-bar" aria-hidden="true"></span>\n' +
+'        <span class="visually-hidden">Menu</span>\n      </button>\n    </div>\n    <div class="nav-drawer" id="navDrawer">\n' +
+'      <a href="/#products">Invoice Finance</a>\n      <a href="/#process">Process</a>\n      <a href="/#why">Why us</a>\n      <a href="/about/">About</a>\n      <a href="/#apply" class="nav-cta">Get your options</a>\n    </div>\n  </header>\n\n' +
+'  <main id="main">\n    <section class="section page-section">\n      <div class="container legal-page">\n' +
+'        <p class="section-label">Blog</p>\n        <h1 class="section-heading page-heading">' + esc(p.title) + '</h1>\n' +
+'        <p class="post-meta">' + esc(p.meta || p.date) + '</p>\n' +
+'        <figure class="post-hero rv">\n          <img src="' + (p.image || "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1600&h=686&q=80") + '"\n' +
+'               sizes="(min-width: 1024px) 60rem, 100vw" alt="" loading="lazy" decoding="async">\n        </figure>\n' +
+'        <div class="how-copy post-body">\n' + contentHtml + '\n        </div>\n      </div>\n    </section>\n  </main>\n\n' +
+'  <footer class="footer">\n    <div class="container footer-inner">\n      <a href="/" class="footer-logo" aria-label="Zap Funds home">\n' +
+'        <picture><source type="image/webp" srcset="/logo.webp"><img src="/logo.png" alt="" class="footer-logo-img" width="980" height="197"></picture>\n      </a>\n    </div>\n' +
+'    <div class="container footer-legal-row">\n      <p class="footer-legal">&copy; 2026 Zap Funds. ABN 16 229 282 801. Zap Funds provides invoice finance brokering to companies in Sydney, Melbourne, Brisbane, Perth and across Australia.<br>\n' +
+'        Zap Funds is a finance broker, not a lender. Information on this site is general in nature and does not\n        constitute financial or credit advice. Subject to lender approval, terms and conditions.\n' +
+'        <a class="footer-link" href="/about/">About</a>, <a class="footer-link" href="/blog/">Blog</a>,\n' +
+'        <a class="footer-link" href="/invoice-factoring/">Invoice Factoring</a>,\n        <a class="footer-link" href="/debtor-finance/">Debtor Finance</a>,\n' +
+'        <a class="footer-link" href="/business-cash-flow/">Business Cash Flow</a>,\n        <a class="footer-link" href="/working-capital/">Working Capital</a>,\n' +
+'        <a class="footer-link" href="/privacy/">Privacy</a>, <a class="footer-link" href="/terms/">Terms</a>,\n        <a class="footer-link" href="/credit-guide/">Credit Guide</a>.</p>\n    </div>\n  </footer>\n\n  <script src="/main.js?v=28"><\/script>\n</body>\n</html>\n';
+    }
+    function updateSitemap(postsArr) {
+      return getJson("/repos/" + OWNER + "/" + REPO + "/contents/sitemap.xml").then(function (f) {
+        var s = f.text;
+        s = s.replace(/\s*<url><loc>https:\/\/zapfunds\.com\.au\/blog\/[^<]*<\/loc><lastmod>[^<]*<\/lastmod><\/url>/g, "");
+        var postLines = postsArr.map(function (p) {
+          return "  <url><loc>https://zapfunds.com.au/blog/" + p.slug + "/</loc><lastmod>" + p.dateISO + "</lastmod></url>";
+        }).join("\n");
+        s = s.replace("</urlset>", postLines + "\n</urlset>");
+        return putFile("/repos/" + OWNER + "/" + REPO + "/contents/sitemap.xml", "Update sitemap post list", s, f.sha);
+      });
+    }
+    function updateListing(postsArr) {
+      return getJson("/repos/" + OWNER + "/" + REPO + "/contents/blog/index.html").then(function (f) {
+        var s = f.text;
+        var sorted = postsArr.slice().sort(function (a, b) { return (b.dateISO || "").localeCompare(a.dateISO || ""); });
+        var cards = sorted.map(cardHtml).join("\n");
+        var block = "<!-- POSTS:START -->\n" + cards + "\n<!-- POSTS:END -->";
+        if (s.indexOf("<!-- POSTS:START -->") === -1) {
+          s = s.replace('<div class="blog-grid">', '<div class="blog-grid">\n' + block);
+        } else {
+          s = s.replace(/<!-- POSTS:START -->[\s\S]*<!-- POSTS:END -->/, block);
+        }
+        return putFile("/repos/" + OWNER + "/" + REPO + "/contents/blog/index.html", "Update blog listing", s, f.sha);
+      });
+    }
+    function savePosts() {
+      var content = JSON.stringify(posts, null, 2) + "\n";
+      return putFile("/repos/" + OWNER + "/" + REPO + "/contents/posts.json", "Update posts index", content, postsSha)
+        .then(function (r) { postsSha = r.content.sha; });
+    }
+    function loadPosts() {
+      return getJson("/repos/" + OWNER + "/" + REPO + "/contents/posts.json").then(function (f) {
+        postsSha = f.sha;
+        posts = JSON.parse(f.text.replace(/^\uFEFF/, ""));
+        renderTable();
+      });
+    }
+    function renderTable() {
+      var rows = posts.slice().sort(function (a, b) { return (b.dateISO || "").localeCompare(a.dateISO || ""); })
+        .map(function (p) {
+          return "<tr><td>" + esc(p.title) + "</td><td><code>/blog/" + esc(p.slug) + "/</code></td><td>" + esc(p.dateISO || "") + "</td>" +
+            '<td class="actions"><a href="/blog/' + esc(p.slug) + '/" target="_blank" rel="noopener">View</a>' +
+            '<button class="danger" data-del="' + esc(p.slug) + '">Delete</button></td></tr>';
+        });
+      $("postRows").innerHTML = rows.join("");
+    }
+
+    function connect() {
+      token = $("token").value.trim();
+      if (!token) { setStatus("tokenStatus", "Paste a token first.", "err"); return; }
+      setStatus("tokenStatus", "Checking token…");
+      gh("/repos/" + OWNER + "/" + REPO).then(function () {
+        localStorage.setItem(TOKEN_KEY, token);
+        setStatus("tokenStatus", "Connected.", "ok");
+        $("app").style.display = "";
+        $("tokenCard").style.display = "none";
+        return loadPosts();
+      }).catch(function (e) { setStatus("tokenStatus", e.message, "err"); });
+    }
+    function forget() {
+      localStorage.removeItem(TOKEN_KEY); token = "";
+      $("app").style.display = "none"; $("tokenCard").style.display = "";
+      $("token").value = ""; setStatus("tokenStatus", "");
+    }
+    function publish() {
+      var title = $("pTitle").value.trim();
+      var slug = slugify($("pSlug").value.trim() || title);
+      var dateISO = $("pDate").value || new Date().toISOString().slice(0, 10);
+      var meta = $("pMeta").value.trim();
+      var excerpt = $("pExcerpt").value.trim();
+      var image = $("pImage").value.trim();
+      var content = $("pContent").value;
+      if (!title || !content) { setStatus("publishStatus", "A title and article text are required.", "err"); return; }
+      if (!meta) { meta = "Zap Funds | " + dateISO; }
+      var btn = $("publishBtn"); btn.disabled = true;
+      setStatus("publishStatus", "Creating the post page…");
+      var existing = null, existingSha = null;
+      loadPosts().then(function () {
+        for (var i = 0; i < posts.length; i++) { if (posts[i].slug === slug) { existing = posts[i]; break; } }
+        var req = existing
+          ? getJson("/repos/" + OWNER + "/" + REPO + "/contents/blog/" + slug + "/index.html").then(function (f) { existingSha = f.sha; })
+          : Promise.resolve();
+        return req.then(function () {
+          var p = { slug: slug, title: title, meta: meta, dateISO: dateISO, excerpt: excerpt, image: image };
+          return putFile("/repos/" + OWNER + "/" + REPO + "/contents/blog/" + slug + "/index.html",
+            (existing ? "Update post: " : "Publish post: ") + title,
+            postPageHtml(p, contentToHtml(content)), existingSha);
+        }).then(function () {
+          setStatus("publishStatus", "Updating the blog listing…");
+          if (existing) { posts = posts.map(function (x) { return x.slug === slug ? p : x; }); }
+          else { posts.unshift(p); }
+          return savePosts();
+        }).then(function () {
+          setStatus("publishStatus", "Updating the sitemap…");
+          return updateSitemap(posts);
+        }).then(function () {
+          setStatus("publishStatus", "Updating the blog page…");
+          return updateListing(posts);
+        }).then(function () {
+          setStatus("publishStatus", "Published. It appears on the site in 1\u20132 minutes.", "ok");
+          renderTable();
+          $("pTitle").value = ""; $("pSlug").value = ""; $("pExcerpt").value = ""; $("pContent").value = "";
+          btn.disabled = false;
+        });
+      }).catch(function (e) {
+        setStatus("publishStatus", e.message, "err"); btn.disabled = false;
+      });
+    }
+    function del(slug) {
+      if (!window.confirm("Delete the post /blog/" + slug + "/ from the website?")) { return; }
+      setStatus("listStatus", "Deleting…");
+      getJson("/repos/" + OWNER + "/" + REPO + "/contents/blog/" + slug + "/index.html").then(function (f) {
+        return deleteFile("/repos/" + OWNER + "/" + REPO + "/contents/blog/" + slug + "/index.html", f.sha, "Delete post: " + slug);
+      }).then(function () {
+        posts = posts.filter(function (p) { return p.slug !== slug; });
+        setStatus("listStatus", "Updating index, sitemap and listing…");
+        return savePosts().then(function () { return updateSitemap(posts); }).then(function () { return updateListing(posts); });
+      }).then(function () {
+        setStatus("listStatus", "Deleted. Removed from the site in 1\u20132 minutes.", "ok");
+        renderTable();
+      }).catch(function (e) { setStatus("listStatus", e.message, "err"); });
+    }
+
+    $("saveToken").addEventListener("click", connect);
+    $("clearToken").addEventListener("click", forget);
+    $("publishBtn").addEventListener("click", publish);
+    $("refreshBtn").addEventListener("click", function () { setStatus("listStatus", "Refreshing…"); loadPosts().then(function () { setStatus("listStatus", "", ""); }); });
+    $("pTitle").addEventListener("input", function () { if (!$("pSlug").dataset.touched) { $("pSlug").value = slugify(this.value); } });
+    $("pSlug").addEventListener("input", function () { $("pSlug").dataset.touched = "1"; });
+    $("pDate").value = new Date().toISOString().slice(0, 10);
+    $("pMeta").placeholder = "Zap Funds | " + new Date().toLocaleDateString("en-AU", { day: "numeric", month: "long", year: "numeric" });
+    $("postRows").addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-del]");
+      if (b) { del(b.getAttribute("data-del")); }
+    });
+    var saved = localStorage.getItem(TOKEN_KEY);
+    if (saved) {
+      $("token").value = saved;
+      connect();
+    }
+  })();
+  </script>
+</body>
+</html>
