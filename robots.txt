@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /panel/
 
 Sitemap: https://zapfunds.com.au/sitemap.xml
