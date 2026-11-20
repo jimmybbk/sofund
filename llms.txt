@@ -5,9 +5,9 @@
 Zap Funds arranges invoice finance and factoring for Australian companies, turning unpaid invoices into cash within 24 hours. Zap Funds is a broker, not a lender; lenders pay our fee, clients pay nothing upfront.
 
 Main site: https://zapfunds.com.au/
-About: https://zapfunds.com.au/about.html
-Blog: https://zapfunds.com.au/blog.html
-Privacy Policy: https://zapfunds.com.au/privacy.html
-Terms of Use: https://zapfunds.com.au/terms.html
-Credit Guide: https://zapfunds.com.au/credit-guide.html
+About: https://zapfunds.com.au/about/
+Blog: https://zapfunds.com.au/blog/
+Privacy Policy: https://zapfunds.com.au/privacy/
+Terms of Use: https://zapfunds.com.au/terms/
+Credit Guide: https://zapfunds.com.au/credit-guide/
 Contact: enquiry form on the main site
