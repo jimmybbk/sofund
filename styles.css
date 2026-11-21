@@ -109,6 +109,7 @@ img, svg { display: inline-block; max-width: 100%; }
 .nav.scrolled {
   padding: 1.25rem 0;
   background: var(--nav-blur-bg);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   box-shadow: 0 1px 0 var(--gray-200);
 }
@@ -349,6 +350,7 @@ html:not(.js) .hero-rotator { display: none; }
   position: absolute;
   inset: 0;
   background: #8A8A96;
+  -webkit-clip-path: circle(0% at 85% 85%);
   clip-path: circle(0% at 85% 85%);
 }
 .mask-content {
@@ -362,7 +364,7 @@ html:not(.js) .hero-rotator { display: none; }
 }
 .mask-content.visible { opacity: 1; }
 html:not(.js) .mask-content { opacity: 1; }
-html:not(.js) .mask-overlay { clip-path: circle(140% at 85% 85%); }
+html:not(.js) .mask-overlay { -webkit-clip-path: circle(140% at 85% 85%); clip-path: circle(140% at 85% 85%); }
 .mask-content > * { width: fit-content; }
 .mask-reveal .section-label { color: rgba(11, 11, 14, 0.55); }
 .mask-reveal .section-heading { color: #0B0B0E; }
@@ -818,7 +820,7 @@ html:not(.js) .fund-line::after { transform: scaleX(1); }
   .fund-line { opacity: 1; transform: none; }
   .fund-line::after { transform: scaleX(1); }
   .mask-content { opacity: 1; transition: none; }
-  .mask-overlay { clip-path: circle(140% at 85% 85%); }
+  .mask-overlay { -webkit-clip-path: circle(140% at 85% 85%); clip-path: circle(140% at 85% 85%); }
 }
 
 /* zoom reveals must never widen the page (full-bleed figures scale up) */
@@ -1071,6 +1073,7 @@ html:not(.js) .rv { opacity: 1; transform: none; }
   align-items: center;
   gap: 0.8rem;
   background: rgba(255, 255, 255, 0.96);
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   border: 1px solid var(--gray-200);
   border-radius: 12px;
