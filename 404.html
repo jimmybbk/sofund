@@ -14,6 +14,12 @@
     // Legacy .html URLs redirect to their clean equivalents
     (function () {
       var path = window.location.pathname;
+      var redirects = {
+        "/blog/invoice-finance-demand-2026": "/blog/",
+        "/blog/cash-flow-squeeze-2026": "/blog/",
+        "/blog/invoice-finance-vs-business-loans": "/blog/"
+      };
+      if (redirects[path]) { window.location.replace(redirects[path]); return; }
       if (!path.endsWith(".html")) { return; }
       var clean = path.replace(/\.html$/, "");
       if (clean === "/index") { clean = "/"; }
