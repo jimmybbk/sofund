@@ -1083,3 +1083,9 @@ html:not(.js) .rv { opacity: 1; transform: none; }
 .hero-chip svg { width: 1.6rem; height: 1.6rem; flex: none; }
 .hero-chip strong { display: block; font-size: 1rem; line-height: 1.2; color: var(--black); }
 .hero-chip span { display: block; font-size: 0.85rem; color: var(--gray-500); }
+
+/* ---------- breadcrumbs ---------- */
+.breadcrumb { font-size: 0.85rem; color: var(--gray-500); margin: 0 0 1.5rem; }
+.breadcrumb a { color: var(--gray-500); text-decoration: none; }
+.breadcrumb a:hover { color: var(--blue); }
+.breadcrumb strong { color: var(--black); font-weight: 500; }
