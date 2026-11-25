@@ -784,8 +784,10 @@ html:not(.js) .fund-line::after { transform: scaleX(1); }
   .stats-row { grid-template-columns: 1fr 1fr; gap: 3rem; }
   .why-grid { grid-template-columns: 1fr; }
   .why-cell { padding: 2rem 1.5rem; }
-  .process-item { grid-template-columns: 4rem 1fr; }
-  .process-desc { grid-column: 2; }
+  .process-item { grid-template-columns: minmax(3rem, auto) minmax(0, 1fr); }
+  .process-num { grid-row: 1; }
+  .process-name { grid-column: 2; grid-row: 1; }
+  .process-desc { grid-column: 2; min-width: 0; }
   .form-card { padding: 2rem 1.5rem; }
   .form-row { grid-template-columns: 1fr; gap: 0; }
   .fund-right { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
